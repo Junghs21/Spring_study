@@ -6,7 +6,10 @@ import hello.servlet.web.frontcontroller.v3.controller.MemberFormControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberListControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberSaveControllerV3;
 import hello.servlet.web.frontcontroller.v4.controller.MemberFormControllerV4;
+import hello.servlet.web.frontcontroller.v4.controller.MemberListControllerV4;
+import hello.servlet.web.frontcontroller.v4.controller.MemberSaveControllerV4;
 import hello.servlet.web.frontcontroller.v5.adapter.ControllerV3HandlerAdapter;
+import hello.servlet.web.frontcontroller.v5.adapter.ControllerV4HandlerAdapter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,10 +37,16 @@ public class FrontControllerServletV5 extends HttpServlet {
         handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new MemberFormControllerV3());   //모든 객체 최상위는 Object
         handlerMappingMap.put("/front-controller/v5/v3/members/save", new MemberSaveControllerV3());       //따라서 어떤 객체가 와도 Object로 선언되어 있으므로
         handlerMappingMap.put("/front-controller/v5/v3/members", new MemberListControllerV3());            //객체 타입에 상관없이 다 담을 수 있음
+
+        //V4 추가
+        handlerMappingMap.put("/front-controller/v5/v4/members/new-form", new MemberFormControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members/save", new MemberSaveControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members", new MemberListControllerV4());
     }
 
     private void initHandlerAdapters() {
-        handlerAdapters.add(new ControllerV3HandlerAdapter());
+        handlerAdapters.add(new ControllerV3HandlerAdapter());  //해당 문장은 v4이면 false가 반환되고 v4이면 true가 반환됨. 따라서 객체 타입에 맞는 Controller 객체가 반환됨
+        handlerAdapters.add(new ControllerV4HandlerAdapter());  //v4 어댑터 추가
     }
 
     @Override

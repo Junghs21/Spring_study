@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //해당 어노테이션을 통해서 new Order()와 같은 새로운 객체 생성에 제약을 줄 수 있다. -> 객체를 생성하지 말고 내부에 생성되어 있는 생성 메서드 등을 사용하도록 유도 가능
 public class Order {
 
     @Id @GeneratedValue
